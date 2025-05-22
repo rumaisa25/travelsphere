@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>TravelSphere</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .btn {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #0a1b17;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #0f5945;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            left: 32%;
+            width: 30%;
+
+        }
+
+        button[type="submit"]:hover {
+            background-color: #228a6e;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #0f5945;
+            height: 75px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            position: sticky;
+        }
+
+        #region{
+            color: white;
+            background-color: #0f5945; 
+            border: none;
+            border-radius: 12px;
+            width: 100%;
+            padding: 10px;
+            
+        }
+
+        .links a {
+            color: white;
+            margin-left: 10px;
+            margin-right: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .links a:hover {
+            color: #a2cbae;
+        }
+
+        #name,
+        #username,
+        #password {
+            width: 95%;
+        }
+
+        .bg{
+            width: 100%;
+        }
+
+        .form-container {
+            font-weight: 300;
+            font-size: medium;
+            border-radius: 15px;
+            margin-left: 135px;
+            margin-bottom: 70px;
+            margin-top: 30px;
+            padding: 20px;
+            width: 80%;
+            background: #fff;
+            position:absolute;
+            top: 35%;
+        }
+
+        .row1 {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+
+        .row2 {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        #to,
+        #destination {
+            width: 40%;
+        }
+
+        #depart,
+        #return {
+            width: 33%;
+        }
+
+        .options {
+            width: 50%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 20px;
+            margin-left: 50px;
+        }
+
+        .row3 {
+            margin-top: 50px;
+            margin-left: 12px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-btn {
+            margin-right: 5px;
+            width: 60%;
+        }
+
+        #class{
+            width: 65%;
+        }
+
+
+        .discount{
+            margin-left: 110px;
+            padding: 34px;
+            color: #09362a;
+            width: 80%;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .discount h2{
+            font-weight: 600;
+        }
+
+        .btn1{
+            color: #0a3e30;
+            background-color:#dae0dd;
+            border: 2px solid rgb(10, 53, 40);
+            border-radius: 25px;
+            padding: 7px;
+            width: 15%;
+        }
+
+        .btn1:hover{
+            background-color:#0f5945;
+            color: white;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            height: 400px;
+            width: 100%;
+        }
+
+        .content {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute;
+            top: 35%;
+            left: 25%;
+            right: 25%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rbga(0, 0, 0, 0.3);
+            max-width: 60%;
+            height: 300px;
+
+        }
+
+
+
+        .footercontent {
+            background-color: black;
+            padding-top: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        .cpy {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 50px 0 50px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <a href="project.html"> <img src="logo2.png" alt="logo"
+                style="width: 170px; height: 90px; padding-top: 12px;"></a>
+
+                <div class="links">
+    <a href="homepage.php"> Home </a>
+    <a href="about.php"> About Us </a>
+    <a href="hotels.php"> Hotels </a>
+    <a href="destinations.php"> Destinations </a>
+    </div>
+</div>
+
+        <div class="region">
+            <select name="region" id="region">
+                <option value="pk">PK</option>
+                <option value="arg">AR</option>
+                <option value="aus">AU</option>
+                <option value="bd">BD</option>
+                <option value="br">BR</option>
+                <option value="ca">CA</option>
+                <option value="cn">CN</option>
+                <option value="eg">EG</option>
+                <option value="fr">FR</option>
+                <option value="ger">GER</option>
+                <option value="gr">GR</option>
+                <option value="hk">HK</option>
+                <option value="in">IN</option>
+                <option value="it">IT</option>
+                <option value="ir">IR</option>
+                <option value="iq">IQ</option>
+                <option value="jp">JP</option>
+                <option value="kr">KR</option>
+                <option value="kw">KW</option>
+                <option value="lb">LB</option>
+                <option value="my">MY</option>
+                <option value="mx">MX</option>
+                <option value="np">NP</option>
+                <option value="nz">NZ</option>
+                <option value="ng">NG</option>
+                <option value="om">OM</option>
+                <option value="ph">PH</option>
+                <option value="pl">PL</option>
+                <option value="pt">PT</option>
+                <option value="qa">QA</option>
+                <option value="ru">RU</option>
+                <option value="sa">SA</option>
+                <option value="sg">SG</option>
+                <option value="es">ES</option>
+                <option value="lk">LK</option>
+                <option value="za">ZA</option>
+                <option value="th">TH</option>
+                <option value="tr">TR</option>
+                <option value="uk">UK</option>
+                <option value="us">US</option>
+                <option value="ae">AE</option>
+                <option value="vn">VN</option>
+                <option value="ye">YE</option>
+                <option value="zw">ZW</option>
+            </select>
+        </div>
+        <div class="loginbtn">
+            <button class="btn" onclick="openModal()">Register</button>
+        </div>
+    </header>
+    <?php if ($message==="Form submitted successfully!") : ?>
+    <div style="<?php echo $message_style; ?>">
+        <?php echo $message; ?>
+    </div>
+<?php endif; ?>
+    <h1 style="color: white; font-family: serif; font-weight: 700; position: absolute; top:25%; left: 40%;">Book a Trip</h1>
+    <div>
+        <img src="bg2.jpg" alt="bgimg" class="bg">
+    </div>
+
+
+    <form class="form-container" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+
+        <div class="row1">
+            <label for="to">From</label>
+            <input type="text" id="to" name="to" placeholder="Lahore, Pakistan">
+            <label for="destination">Destination</label>
+            <input type="text" id="destination" name="destination" placeholder="Destination">
+        </div>
+        <div class="row2">
+            <label for="depart">Depart</label>
+            <input type="date" id="depart" name="depart">
+            <label for="return">Return</label>
+            <input type="date" id="return" name="return">
+            <label for="direct">Direct flight</label>
+            <input type="checkbox" id="direct" name="direct">
+        </div>
+
+
+
+        <div class="row3">
+            <div class="options">
+                <div><label for="payment">Payment Type</label>
+                    <select id="payment" name="payment">
+                        <option value="credit">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="cash">Cash</option>
+                        <option value="master">MasterCard</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="class" name="class" style="border: none; outline: none; background: transparent;">
+                        <option value="economy">Economy</option>
+                        <option value="premium">Premium Economy</option>
+                        <option value="business">Business Class</option>
+                        <option value="firstclass">First Class</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-btn">
+                <button type="submit">Go</button>
+            </div>
+            <?php if ($message==="All fields are required!") : ?>
+    <div style="<?php echo $message_style; ?>">
+        <?php echo $message; ?>
+    </div>
+<?php endif; ?>
+    </div>
+        </div>
+       
+    </form>
+
+
+    <div class="discount">
+        <h2>Discount Upto 30% Off</h2>
+        <p>Travel the world on a budget with our unbeatable discounted travel deals.
+            Whether you're looking for a last-minute escape or planning ahead, we've
+            got you covered with incredible discount on flights, hotels and packages.
+            Book now and experience the adventure of a lifetime!
+        </p>
+	<a href="destinations.php" style="margin-top:20px; text-decoration:none;"
+        <button class="btn1" style="text-decoration: none;">See Tours</button>
+	</a>
+	
+    </div>
+
+    <footer>
+        <div class="footercontent">
+            <img src="logo2.png" alt="logo" style="width: 170px; height: 90px; padding-top: 12px;">
+
+            <div class="company">
+                <p style="font-weight: bold; font-size: larger;">Company</p>
+                <p>About TravelSphere</p>
+                <p>Services</p>
+                <p>Contact</p>
+            </div>
+            <div class="learnmore">
+                <p style="font-weight: bold; font-size: larger;">Learn More</p>
+                <p>Book on TravelSphere</p>
+                <p>TravelSphere Business Travel</p>
+                <p>Hoteliers</p>
+                <p>Privacy Policy</p>
+                <p>Terms & Conditions</p>
+            </div>
+            <div class="explore">
+                <p style="font-weight: bold; font-size: larger;"> Explore</p>
+                <p>Airlines Directory</p>
+                <p>Flights Schedule</p>
+                <p>Hotel Chains</p>
+            </div>
+            <div class="download">
+                <p style="font-weight: bold; font-size: larger;">Download</p>
+                <p>TravelSphere App (Android)</p>
+                <p>TravelSphere App (IOS)</p>
+            </div>
+        </div>
+
+        <p class="cpy">Copyright ©2025 TravelSphere Ptd Ltd. All Rights Reserved</p>
+    </footer>
+
+
+  
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <h2 style="color:#0f5945; font-weight: bold; text-align: center;" id="modalTitle">Register</h2>
+        <form id="loginForm" action="login_process.php" method="post">
+            <div id="registerFields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter Your name" >
+            </div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter username or phone number" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <button type="submit" style="text-align: center;">Submit</button>
+
+            <p id="toggleText">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+        </form><div id="msg"></div>
+    </div>
+</div>
+<script>
+   
+    function toggleForm() {
+        const modalTitle = document.getElementById('modalTitle');
+        const registerFields = document.getElementById('registerFields');
+        const formAction = document.getElementById('loginForm');
+        const toggleText = document.getElementById('toggleText');
+
+        if (modalTitle.innerText === "Register") {
+            modalTitle.innerText = "Login";
+            registerFields.style.display = 'none';
+            formAction.action = "login.php"; 
+            toggleText.innerHTML = "Don't have an account? <a href='#' onclick='toggleForm()'>Register</a>";
+        } else {
+            modalTitle.innerText = "Register";
+            registerFields.style.display = 'block';
+            formAction.action = "login_process.php";
+            toggleText.innerHTML = "Already have an account? <a href='#' onclick='toggleForm()'>Login</a>";
+        }
+    }
+
+            function openModal() {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+
+          
+            function closeModal() {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+
+           
+            window.onclick = function (event) {
+                const modal = document.getElementById('loginModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        </script>
+</body>
+
+</html>
+
+

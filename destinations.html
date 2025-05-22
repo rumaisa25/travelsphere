@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>TravelSphere</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    background-image: url('background.jpg');  /* Set the background image */
+    background-size: cover;  /* Cover the entire page */
+    background-position: center;  /* Center the image */
+    background-repeat: no-repeat;  /* Ensure the image doesn't repeat */
+    position: relative;  /* Create a context for the overlay */
+}
+
+body::before {
+    content: '';  /* Necessary for the pseudo-element */
+    position: absolute;  /* Position it on top of the body */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);  /* Dim the image with a black overlay */
+    z-index: -1;  /* Ensure the overlay stays behind the content */
+}
+
+        .btn {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #0a1b17;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #0f5945;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            left: 32%;
+            width: 30%;
+
+        }
+
+        button[type="submit"]:hover {
+            background-color: #228a6e;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #0f5945;
+            height: 75px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            position: sticky;
+        }
+
+        #region {
+            color: white;
+            background-color: #0f5945;
+            border: none;
+            border-radius: 12px;
+            width: 100%;
+            padding: 10px;
+
+        }
+
+        .links a {
+            color: white;
+            margin-left: 10px;
+            margin-right: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .links a:hover {
+            color: #a2cbae;
+        }
+
+        #name,
+        #username,
+        #password {
+            width: 95%;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            height: 400px;
+            width: 100%;
+        }
+
+        .content{
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute;
+            top: 35%;
+            left: 25%;
+            right: 25%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rbga(0, 0,0, 0.3);
+            max-width: 60%;
+            height: 300px;
+            
+        }
+
+        #book-btn{
+            margin-top: 20px;
+            padding: 10px 15px 10px 15px;
+            color: white;
+            background-color: #0f5945;
+            border: none;
+            border-radius: 20px;
+            width: 20%;
+        }
+
+        #book-btn:hover{
+            background-color: #0c7661;
+        }
+
+        .footercontent{
+            background-color: black;
+            padding-top: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        .cpy{
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 50px 0 50px 0;
+        }
+        /* Add this to your existing styles */
+        .categories {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .category {
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #0f5945;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .category:hover {
+            background-color: #0c7661;
+        }
+
+        .locations {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .location-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .location-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .location-card p {
+            color: #888;
+        }
+
+        .expense {
+            font-weight: bold;
+            color: #0f5945;
+            margin-top: 10px;
+        }
+
+        .destination-header {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .destination-header h2 {
+            font-size: 30px;
+            color:white;
+        }
+
+        .destination-header p {
+            font-size: 18px;
+            color: white;
+        }
+
+       
+           .imagegrid{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+            margin-right: 10px;
+           }
+
+           .imagegrid img{
+            width: 100%;
+            height: 200px;
+            display: block;
+            margin: 10px;
+            margin-right: 10px;
+           }
+
+    </style>
+</head>
+
+
+<body>
+    <header>
+        
+        <a href="homepage.php"> <img src="logo2.png" alt="logo" style="width: 170px; height: 90px; padding-top: 12px;"></a>
+
+<div class="links">
+    <a href="homepage.php"> Home </a>
+    <a href="about.php"> About Us </a>
+    <a href="hotels.php"> Hotels </a>
+    <a href="destinations.php"> Destinations </a>
+    </div>
+</div>
+
+        <div class="region">
+            <select name="region" id="region">
+                <option value="pk">PK</option>
+                <option value="arg">AR</option>
+                <option value="aus">AU</option>
+                <option value="bd">BD</option>
+                <option value="br">BR</option>
+                <option value="ca">CA</option>
+                <option value="cn">CN</option>
+                <option value="eg">EG</option>
+                <option value="fr">FR</option>
+                <option value="ger">GER</option>
+                <option value="gr">GR</option>
+                <option value="hk">HK</option>
+                <option value="in">IN</option>
+                <option value="it">IT</option>
+                <option value="ir">IR</option>
+                <option value="iq">IQ</option>
+                <option value="jp">JP</option>
+                <option value="kr">KR</option>
+                <option value="kw">KW</option>
+                <option value="lb">LB</option>
+                <option value="my">MY</option>
+                <option value="mx">MX</option>
+                <option value="np">NP</option>
+                <option value="nz">NZ</option>
+                <option value="ng">NG</option>
+                <option value="om">OM</option>
+                <option value="ph">PH</option>
+                <option value="pl">PL</option>
+                <option value="pt">PT</option>
+                <option value="qa">QA</option>
+                <option value="ru">RU</option>
+                <option value="sa">SA</option>
+                <option value="sg">SG</option>
+                <option value="es">ES</option>
+                <option value="lk">LK</option>
+                <option value="za">ZA</option>
+                <option value="th">TH</option>
+                <option value="tr">TR</option>
+                <option value="uk">UK</option>
+                <option value="us">US</option>
+                <option value="ae">AE</option>
+                <option value="vn">VN</option>
+                <option value="ye">YE</option>
+                <option value="zw">ZW</option>
+            </select>
+        </div>
+        <div class="loginbtn">
+            <button class="btn" onclick="openModal()">Register</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Destination Header -->
+        <div class="destination-header">
+            <h2>Explore Amazing Destinations</h2>
+            <p>Discover the world's most beautiful locations, handpicked for you!</p>
+        </div>
+
+        <div class="categories">
+            <div class="category" onclick="showLocations('romantic')">Romantic</div>
+            <div class="category" onclick="showLocations('beach')">Beach</div>
+            <div class="category" onclick="showLocations('family')">Family-friendly</div>
+            <div class="category" onclick="showLocations('nature')">Nature</div>
+            <div class="category" onclick="showLocations('culture')">Culture</div>
+            <div class="category" onclick="showLocations('summer')">Summer Special</div>
+        </div>
+    
+        <!-- Dynamic Locations Container -->
+        <div id="locationsContainer" class="locations"></div>
+    
+        <!-- Default Destination Images Section -->
+        <div class="imagegrid">
+            <img src="paris.jpg" alt="Paris">
+            <img src="maldives.jpg" alt="Maldives">
+            <img src="kyoto.jpg" alt="Kyoto">
+            <img src="hawaii.jpg" alt="Hawaii">
+            <img src="pakistan.jpg" alt="Pakistan">
+            <img src="newyork.jpg" alt="New York">
+            <img src="california.jpg" alt="California">
+            <img src="losangeles.jpg" alt="Los Angeles">
+        </div>
+    </main>
+
+    
+
+    <footer>
+        <div class="footercontent">
+            <img src="logo2.png" alt="logo" style="width: 170px; height: 90px; padding-top: 12px;">
+
+            <div class="company">
+                <p style="font-weight: bold; font-size: larger;">Company</p>
+                <p>About TravelSphere</p>
+                <p>Services</p>
+                <p>Contact</p>
+            </div>
+            <div class="learnmore">
+                <p style="font-weight: bold; font-size: larger;">Learn More</p>
+                <p>Book on TravelSphere</p>
+                <p>TravelSphere Business Travel</p>
+                <p>Hoteliers</p>
+                <p>Privacy Policy</p>
+                <p>Terms & Conditions</p>
+            </div>
+            <div class="explore">
+                <p style="font-weight: bold; font-size: larger;"> Explore</p>
+                <p>Airlines Directory</p>
+                <p>Flights Schedule</p>
+                <p>Hotel Chains</p>
+            </div>
+            <div class="download">
+                <p style="font-weight: bold; font-size: larger;">Download</p>
+                <p>TravelSphere App (Android)</p>
+                <p>TravelSphere App (IOS)</p>
+            </div>
+        </div>     
+           
+        <p class="cpy">Copyright ©2025 TravelSphere Ptd Ltd. All Rights Reserved</p>
+    </footer>
+
+    
+    
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <h2 style="color:#0f5945; font-weight: bold; text-align: center;" id="modalTitle">Register</h2>
+        <form id="loginForm" action="login_process.php" method="post">
+            <div id="registerFields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter Your name" >
+            </div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter username or phone number" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <button type="submit" style="text-align: center;">Submit</button>
+
+            <p id="toggleText">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+        </form><div id="msg"></div>
+    </div>
+</div>
+
+<script>
+    // Toggle between Register and Login forms
+    function toggleForm() {
+        const modalTitle = document.getElementById('modalTitle');
+        const registerFields = document.getElementById('registerFields');
+        const formAction = document.getElementById('loginForm');
+        const toggleText = document.getElementById('toggleText');
+
+        if (modalTitle.innerText === "Register") {
+            modalTitle.innerText = "Login";
+            registerFields.style.display = 'none';
+            formAction.action = "login.php"; // Change form action to login
+            toggleText.innerHTML = "Don't have an account? <a href='#' onclick='toggleForm()'>Register</a>";
+        } else {
+            modalTitle.innerText = "Register";
+            registerFields.style.display = 'block';
+            formAction.action = "login_process.php"; // Change form action back to registration
+            toggleText.innerHTML = "Already have an account? <a href='#' onclick='toggleForm()'>Login</a>";
+        }
+    }
+</script>
+
+        <script>
+            // Open Modal
+            function openModal() {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+
+            // Close Modal
+            function closeModal() {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+
+            // Close Modal when clicking outside the modal content
+            window.onclick = function (event) {
+                const modal = document.getElementById('loginModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+      
+
+    function showLocations(category) {
+        const locationsData = {
+            romantic: [
+            { name: "Paris", image: "paris.jpg", expense: "$2000" },
+            { name: "Venice", image: "venice.jpg", expense: "$1800" },
+            { name: "Kyoto", image: "kyoto.jpg", expense: "$1500" },
+            { name: "Santorini", image: "santorini.jpg", expense: "$2200" },
+            { name: "Bora Bora", image: "borabora.jpg", expense: "$3000" },
+            { name: "Maldives", image: "maldives.jpg", expense: "$3500" },
+            { name: "New York", image: "newyork.jpg", expense: "$3200" },
+            { name: "California", image: "california.jpg", expense: "$2500" }
+        ],
+        beach: [
+            { name: "Hawaii", image: "hawaii.jpg", expense: "$2500" },
+            { name: "Maldives", image: "maldives.jpg", expense: "$3500" },
+            { name: "Phuket", image: "phuket.jpg", expense: "$2000" },
+            { name: "Bora Bora", image: "borabora.jpg", expense: "$3000" },
+            { name: "Maui", image: "maui.jpg", expense: "$2200" },
+            { name: "California", image: "california.jpg", expense: "$2500" },
+            { name: "Los Angeles", image: "losangeles.jpg", expense: "$2700" },
+            { name: "Cannes", image: "cannes.jpg", expense: "$2900" }
+        ],
+            family: [
+            { name: "Orlando", image: "orlando.jpg", expense: "$1000" },
+            { name: "Disneyland Paris", image: "disneyland.jpg", expense: "$1200" },
+            { name: "Tokyo Disneyland", image: "tokyodisneyland.jpg", expense: "$1100" },
+            { name: "London", image: "london.jpg", expense: "$1400" },
+            { name: "Singapore", image: "singapore.jpg", expense: "$2000" },
+            { name: "Sydney", image: "sydney.jpg", expense: "$2300" },
+            { name: "Cape Town", image: "capetown.jpg", expense: "$1800" },
+            { name: "Toronto", image: "toronto.jpg", expense: "$1900" }
+        ],
+        nature: [
+            { name: "Grand Canyon", image: "grandcanyon.jpg", expense: "$900" },
+            { name: "Yellowstone", image: "yellowstone.jpg", expense: "$1300" },
+            { name: "Banff", image: "banff.jpg", expense: "$1500" },
+            { name: "Amazon Rainforest", image: "amazon.jpg", expense: "$2000" },
+            { name: "Niagara Falls", image: "niagara.jpg", expense: "$1000" },
+            { name: "Patagonia", image: "patagonia.jpg", expense: "$2200" },
+            { name: "Swiss Alps", image: "swissalps.jpg", expense: "$2500" },
+            { name: "Yosemite", image: "yosemite.jpg", expense: "$1800" }
+        ],
+            culture: [
+            { name: "Rome", image: "rome.jpg", expense: "$1600" },
+            { name: "Athens", image: "athens.jpg", expense: "$1400" },
+            { name: "Istanbul", image: "istanbul.jpg", expense: "$1200" },
+            { name: "Machu Picchu", image: "machupicchu.jpg", expense: "$2200" },
+            { name: "Petra", image: "petra.jpg", expense: "$1800" },
+            { name: "Cairo", image: "cairo.jpg", expense: "$1700" },
+            { name: "Jerusalem", image: "jerusalem.jpg", expense: "$1500" },
+            { name: "Kyoto", image: "kyoto.jpg", expense: "$1500" }
+        ],
+        summer: [
+            { name: "Bali", image: "bali.jpg", expense: "$2000" },
+            { name: "Hawaii", image: "hawaii.jpg", expense: "$2500" },
+            { name: "Maldives", image: "maldives.jpg", expense: "$3500" },
+            { name: "Cancun", image: "cancun.jpg", expense: "$2800" },
+            { name: "Santorini", image: "santorini.jpg", expense: "$2200" },
+            { name: "Gold Coast", image: "goldcoast.jpg", expense: "$2300" },
+            { name: "Ibiza", image: "ibiza.jpg", expense: "$2700" },
+            { name: "Miami", image: "miami.jpg", expense: "$2400" }
+        ]
+    };
+    
+
+        const locations = locationsData[category] || [];
+        const container = document.getElementById('locationsContainer');
+        const defaultImages = document.querySelectorAll('.destination-images');
+
+        // Hide the default images
+        defaultImages.forEach((section) => {
+            section.style.display = 'none';
+        });
+
+        // Clear previous category-specific locations
+        container.innerHTML = '';
+
+        // Add new locations based on the selected category
+        if (locations.length > 0) {
+            locations.forEach(location => {
+                const card = document.createElement('div');
+                card.className = 'location-card';
+                card.innerHTML = `
+                    <img src="${location.image}" alt="${location.name}">
+                    <h3>${location.name}</h3>
+                    <p class="expense">${location.expense}</p>
+                `;
+                container.appendChild(card);
+            });
+        } else {
+            container.innerHTML = '<p>No locations available for this category.</p>';
+        }
+    }
+</script>
+</body>
+</html>

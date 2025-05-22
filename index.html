@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>TravelSphere</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+
+        }
+
+        .btn {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #0a1b17;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-btn:hover {
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #0f5945;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            left: 32%;
+            width: 30%;
+
+        }
+
+        button[type="submit"]:hover {
+            background-color: #228a6e;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #0f5945;
+            height: 75px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            position: sticky;
+        }
+
+        #region {
+            color: white;
+            background-color: #0f5945;
+            border: none;
+            border-radius: 12px;
+            width: 100%;
+            padding: 10px;
+
+        }
+
+        .links a {
+            color: white;
+            margin-left: 10px;
+            margin-right: 40px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .links a:hover {
+            color: #a2cbae;
+        }
+
+        #name,
+        #username,
+        #password {
+            width: 95%;
+        }
+
+        .feat {
+            height: 200px;
+            width: 200px;
+        }
+
+        .text {
+            font-family: sans-serif;
+            font-size: larger;
+        }
+
+        #icon1,
+        #icon2,
+        #icon3 {
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 27%;
+            height: 330px;
+            padding-top: 30px;
+            box-shadow: 0 0 8px 2px rgb(159, 156, 156);
+            transition: transform 0.3s ease;
+        }
+
+        #icon1:hover,
+        #icon2:hover,
+        #icon3:hover {
+            transform: scale(1.05);
+        }
+
+        #section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin-top: 50px;
+        }
+
+
+        .logos {
+            height: 80px;
+            width: 130px;
+            margin-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 50px;
+        }
+
+        .air {
+            height: 80px;
+            width: 170px;
+            padding-bottom: 25px;
+        }
+
+        #textair {
+            width: 30%;
+            text-align: center;
+            margin-right: 20px;
+        }
+
+        .container2 {
+            margin-top: 50px;
+            width: 90%;
+            background-color: white;
+            border-radius: 5px;
+            height: 350px;
+            padding: 54px;
+            padding-top: 90px;
+            margin-left: 64px;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 10px rgb(159, 157, 157);
+        }
+
+        .category {
+            background-color: white;
+            width: 24%;
+            height: 385px;
+            border-radius: 4px;
+            margin-left: 70px;
+            margin-bottom: 50px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 10px rgb(159, 157, 157);
+        }
+
+	
+
+	.catlinks{
+	margin-left: 40px;
+	}
+
+	.catlinks p{
+	color: #0f4230;
+	font-weight: bold;
+	font-size: 17px;
+	}
+
+       .dests{
+        width: 60%;
+        position: absolute;
+        right:70px;
+        top: 1498px;
+       }
+
+       .imgtext{
+            width: 40%;
+            text-align: center;
+            color: white;
+            position: absolute;
+            right: 200px;
+            top: 1600px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        #destbtn:hover{
+            background-color: #ccc;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            height: 400px;
+            width: 100%;
+        }
+
+       
+        .content {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            position: absolute;
+            top: 35%;
+            left: 25%;
+            right: 25%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rbga(0, 0, 0, 0.3);
+            max-width: 60%;
+            height: 300px;
+
+        }
+
+        #book-btn {
+            margin-top: 20px;
+            padding: 10px 15px 10px 15px;
+            color: white;
+            background-color: #0f5945;
+            border: none;
+            border-radius: 20px;
+            width: 20%;
+        }
+
+        #book-btn:hover {
+            background-color: #0c7661;
+        }
+
+        .footercontent {
+            background-color: black;
+            padding-top: 30px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        .cpy {
+            text-align: center;
+            background-color: black;
+            color: white;
+            padding: 50px 0 50px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+    <a href="homepage.php"> <img src="logo2.png" alt="logo" style="width: 170px; height: 90px; padding-top: 12px;"></a>
+
+<div class="links">
+    <a href="homepage.php"> Home </a>
+    <a href="about.php"> About Us </a>
+    <a href="hotels.php"> Hotels </a>
+    <a href="destinations.php"> Destinations </a>
+    
+</div>
+
+        <div class="region">
+            <select name="region" id="region">
+                <option value="pk">PK</option>
+                <option value="arg">AR</option>
+                <option value="aus">AU</option>
+                <option value="bd">BD</option>
+                <option value="br">BR</option>
+                <option value="ca">CA</option>
+                <option value="cn">CN</option>
+                <option value="eg">EG</option>
+                <option value="fr">FR</option>
+                <option value="ger">GER</option>
+                <option value="gr">GR</option>
+                <option value="hk">HK</option>
+                <option value="in">IN</option>
+                <option value="it">IT</option>
+                <option value="ir">IR</option>
+                <option value="iq">IQ</option>
+                <option value="jp">JP</option>
+                <option value="kr">KR</option>
+                <option value="kw">KW</option>
+                <option value="lb">LB</option>
+                <option value="my">MY</option>
+                <option value="mx">MX</option>
+                <option value="np">NP</option>
+                <option value="nz">NZ</option>
+                <option value="ng">NG</option>
+                <option value="om">OM</option>
+                <option value="ph">PH</option>
+                <option value="pl">PL</option>
+                <option value="pt">PT</option>
+                <option value="qa">QA</option>
+                <option value="ru">RU</option>
+                <option value="sa">SA</option>
+                <option value="sg">SG</option>
+                <option value="es">ES</option>
+                <option value="lk">LK</option>
+                <option value="za">ZA</option>
+                <option value="th">TH</option>
+                <option value="tr">TR</option>
+                <option value="uk">UK</option>
+                <option value="us">US</option>
+                <option value="ae">AE</option>
+                <option value="vn">VN</option>
+                <option value="ye">YE</option>
+                <option value="zw">ZW</option>
+            </select>
+        </div>
+
+        <div class="loginbtn">
+            <button class="btn" onclick="openModal()">Register</button>
+        </div>
+    </header>
+
+    <div style="max-width:100%">
+        <img class="mySlides w3-animate-right" src="img1.jpg" style="width:100%; height: 500px">
+        <img class="mySlides w3-animate-right" src="img5.jpg" style="width:100%; height: 500px">
+        <img class="mySlides w3-animate-right" src="img10.jpg" style="width:100%; height: 500px">
+        <img class="mySlides w3-animate-right" src="img3.jpg" style="width:100%; height: 500px">
+        <img class="mySlides w3-animate-right" src="img2.jpg" style="width:100%; height: 500px">
+
+        <div class="content">
+            <h3 style="font-weight: bold; margin-top: 15px;">Welcome to your next Adventure!</h3>
+            <p style="font-size: larger;">Discover the world like never before! Whether you're dreaming of serene
+                beaches, vibrant cities, or
+                breathtaking landscapes, we're here to turn your travel dreams into realty.</p>
+            <a href="form.php">
+                <button id="book-btn" type="button">Book Now</button>
+            </a>
+
+        </div>
+    </div>
+
+
+
+    <h2
+        style="text-align: center; font-weight: bold; margin-bottom: 20px; margin-top: 50px; font-family: serif; color: #093529;">
+        Featured Experiences</h2>
+    <section id="section">
+        <div id="icon1">
+            <img src="safari.jpg" alt="icon" class="feat">
+            <h3 class="text" style="margin-top: 25px;">Safari Tours</h3>
+        </div>
+        <div id="icon2">
+            <img src="island.jpg" alt="icon" class="feat">
+            <h3 class="text" style="margin-top: 25px;">Island Hopping Adventures</h3>
+        </div>
+        <div id="icon3">
+            <img src="city.jpg" alt="icon" class="feat">
+            <h3 class="text" style="margin-top: 25px;">Cultural City Walks</h3>
+        </div>
+    </section>
+
+    <div class="container2">
+        <div id="textair">
+            <h2 style="font-weight: 600;">Popular Airlines in Pakistan</h2>
+            <p style="font-weight: 400;">Book cheap flights on your favourite airlines</p>
+        </div>
+        <div class="logos">
+            <img src="pia.webp" alt="logo" class="air">
+            <img src="airblue.webp" alt="logo" class="air">
+            <img src="serene.webp" alt="logo" class="air">
+            <img src="qatar.webp" alt="logo" class="air">
+            <img src="emirates.webp" alt="logo" class="air">
+            <img src="flydubai.webp" alt="logo" class="air">
+        </div>
+    </div>
+
+ <div class="flexcon">
+
+    <div class="category">
+        <h2 style="color:#093529; font-weight: 600; margin-left: 33px; margin-bottom: 20px; margin-top: 40px;">Top
+            Categories</h2>
+        <div class="catlinks">
+            <p>Flights</p>
+            <p>Hotels</p>
+            <p>Vacation Packages</p>
+            <p>Tourist Attractions</p>
+	    <p>Blogs</p>
+        </div>
+
+    </div>
+
+    <div class="imgcontainer">
+        <img src="dest.jpg" alt="destinations" class="dests">
+        <div class="imgtext">
+            <h3 style="font-weight: 600; font-size: 34px;">Explore Popular Destinations</h3>
+            <p>Pack your bags and let the world unfold before you—it's time to discover new landscapes, taste local
+                flavors,
+                and embrace the beauty of the unknown.</p>
+                <a href="destinations.php">
+                <button style="border-radius: 20px; padding: 10px; width:20%; color:white; background: none; border: 2px solid white;" >See More</button>
+            </a>
+            </div>
+	</div>
+    
+  </div>
+
+
+    <footer>
+        <div class="footercontent">
+            <img src="logo2.png" alt="logo" style="width: 170px; height: 90px; padding-top: 12px;">
+
+            <div class="company">
+                <p style="font-weight: bold; font-size: larger;">Company</p>
+                <p>About TravelSphere</p>
+                <p>Services</p>
+                <p>Contact</p>
+            </div>
+            <div class="learnmore">
+                <p style="font-weight: bold; font-size: larger;">Learn More</p>
+                <p>Book on TravelSphere</p>
+                <p>TravelSphere Business Travel</p>
+                <p>Hoteliers</p>
+                <p>Privacy Policy</p>
+                <p>Terms & Conditions</p>
+            </div>
+            <div class="explore">
+                <p style="font-weight: bold; font-size: larger;"> Explore</p>
+                <p>Airlines Directory</p>
+                <p>Flights Schedule</p>
+                <p>Hotel Chains</p>
+            </div>
+            <div class="download">
+                <p style="font-weight: bold; font-size: larger;">Download</p>
+                <p>TravelSphere App (Android)</p>
+                <p>TravelSphere App (IOS)</p>
+            </div>
+        </div>
+
+        <p class="cpy">Copyright ©2025 TravelSphere Ptd Ltd. All Rights Reserved</p>
+    </footer>
+
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 3500);
+        }
+    </script>
+
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <h2 style="color:#0f5945; font-weight: bold; text-align: center;" id="modalTitle">Register</h2>
+        <form id="loginForm" action="login_process.php" method="post">
+            <div id="registerFields">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter Your name" >
+            </div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter username or phone number" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <button type="submit" style="text-align: center;">Submit</button>
+
+            <p id="toggleText">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+        </form><div id="msg"></div>
+    </div>
+</div>
+
+<script>
+    // Toggle between Register and Login forms
+    function toggleForm() {
+        const modalTitle = document.getElementById('modalTitle');
+        const registerFields = document.getElementById('registerFields');
+        const formAction = document.getElementById('loginForm');
+        const toggleText = document.getElementById('toggleText');
+
+        if (modalTitle.innerText === "Register") {
+            modalTitle.innerText = "Login";
+            registerFields.style.display = 'none';
+            formAction.action = "login.php"; // Change form action to login
+            toggleText.innerHTML = "Don't have an account? <a href='#' onclick='toggleForm()'>Register</a>";
+        } else {
+            modalTitle.innerText = "Register";
+            registerFields.style.display = 'block';
+            formAction.action = "login_process.php"; // Change form action back to registration
+            toggleText.innerHTML = "Already have an account? <a href='#' onclick='toggleForm()'>Login</a>";
+        }
+    }
+</script>
+<script>
+            // Open Modal
+            function openModal() {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+
+            // Close Modal
+            function closeModal() {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+
+            // Close Modal when clicking outside the modal content
+            window.onclick = function (event) {
+                const modal = document.getElementById('loginModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        </script>
+</body>
+
+</html>
